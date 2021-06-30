@@ -4,7 +4,7 @@ services:
   web:
     container_name: recipes
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: sh startup.sh
     ports: 
       - 8000:8000
     volumes:
