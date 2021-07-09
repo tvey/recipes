@@ -1,0 +1,18 @@
+{% load static %}
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/bulma.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block title %}{% endblock title %}Есть!</title>
+  </head>
+  <body>
+    {% include 'includes/navbar.html' %}
+    <main class="container">
+      {% block content %}{% endblock content %}
+    </main>
+  </body>
+</html>

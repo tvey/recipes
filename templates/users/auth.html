@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {% if 'join' in request.path %}
+    Регистрация | 
+  {% elif 'login' in request.path %}
+    Войти | 
+  {% endif %}
+{% endblock title %}
+
+{% block content %}
+<div>
+  {% include 'includes/messages.html' %}
+  {% if 'join' in request.path %}
+    <form method="post">{% csrf_token %}
+      <h2>Регистрация</h2>
+      {% include 'includes/form.html' with form=form %}
+      <button type="submit">Зарегистрироваться</button>
+      <small class="has-text-grey-light">Уже есть аккаунт? <a href="{% url 'users:login' %}">Войти</a></small>
+    </form>
+  {% elif 'login' in request.path %}
+    <form method="post">{% csrf_token %}
+    <h2>Войти</h2>
+    {% include 'includes/form.html' with form=form %}
+    <small>
+      <a href="#">Забыли пароль?</a>
+    </small>
+    <button type="submit">Войти</button>
+    <small class="has-text-grey-light">Нужен аккаунт? <a href="{% url 'users:register' %}">Можно создать</a></small>
+    </form>
+  {% endif %}
+</div>
+{% endblock content %}

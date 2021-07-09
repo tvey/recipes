@@ -1,3 +1,9 @@
 from django.urls import path
 
-urlpatterns = []
+from .views import index
+
+app_name = 'recipes'
+
+urlpatterns = [
+   path('', index, name='index'), 
+]

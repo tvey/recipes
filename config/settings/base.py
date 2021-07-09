@@ -73,6 +73,10 @@ AUTHENTICATION_BACKENDS = [
     'users.backends.EmailOrUsernameModelBackend',
 ]
 
+LOGIN_URL = 'users:login'
+LOGIN_REDIRECT_URL = 'recipes:index'
+LOGOUT_REDIRECT_URL = 'recipes:index'
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
