@@ -18,6 +18,23 @@ class LoginForm(AuthenticationForm):
 
     username = forms.CharField(
         label='Имя пользователя или почта',
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'input',
+                'required': 'true',
+                'placeholder': '',
+            }
+        ),
+    )
+
+    password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'input',
+                'required': 'true',
+                'placeholder': '',
+            }
+        ),
     )
 
 
@@ -32,7 +49,7 @@ class RegistrationForm(UserCreationForm):
         },
         widget=forms.TextInput(
             attrs={
-                'class': '',
+                'class': 'input',
                 'required': 'true',
                 'autofocus': 'autofocus',
                 'placeholder': '',
@@ -40,13 +57,22 @@ class RegistrationForm(UserCreationForm):
         ),
     )
 
-    email = forms.EmailField(label='Электронная почта')
+    email = forms.EmailField(
+        label='Электронная почта',
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'input',
+                'required': 'true',
+                'placeholder': '',
+            }
+        ),
+    )
 
     password1 = forms.CharField(
         label='Пароль',
         widget=forms.PasswordInput(
             attrs={
-                'class': '',
+                'class': 'input',
                 'required': 'true',
                 'placeholder': '',
             }
@@ -56,7 +82,7 @@ class RegistrationForm(UserCreationForm):
         label='И ещё раз пароль',
         widget=forms.PasswordInput(
             attrs={
-                'class': '',
+                'class': 'input',
                 'type': 'password',
                 'required': True,
                 'placeholder': '',

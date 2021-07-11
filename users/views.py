@@ -8,7 +8,7 @@ from .forms import RegistrationForm, LoginForm
 
 def register(request):
     if request.user.is_authenticated:
-        return redirect('recipes:index')
+        return redirect('recipes:home')
 
     form = RegistrationForm(request.POST or None)
     if form.is_valid():

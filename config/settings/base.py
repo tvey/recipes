@@ -74,8 +74,8 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 LOGIN_URL = 'users:login'
-LOGIN_REDIRECT_URL = 'recipes:index'
-LOGOUT_REDIRECT_URL = 'recipes:index'
+LOGIN_REDIRECT_URL = 'recipes:home'
+LOGOUT_REDIRECT_URL = 'recipes:home'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -98,3 +98,10 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.ERROR: "danger",
+}

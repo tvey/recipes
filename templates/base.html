@@ -5,14 +5,17 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'css/bulma.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script src="https://kit.fontawesome.com/c6255d9ae6.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>{% block title %}{% endblock title %}Есть!</title>
   </head>
   <body>
     {% include 'includes/navbar.html' %}
     <main class="container">
+      {% include 'includes/messages.html' %}
       {% block content %}{% endblock content %}
     </main>
+    <script src="{% static 'js/script.js' %}"></script>
   </body>
 </html>

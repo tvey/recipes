@@ -11,18 +11,18 @@
 {% endif %}
 
 {% for field in form.visible_fields %}
-  <div class="form-group">
+  <div class="field">
     {{ field.label_tag }}
     {{ field }}
 
     {% if field.errors %}
       {% for error in field.errors %}
-        <small class="text-danger">{{ error }}</small>
+        <small class="is_danger">{{ error }}</small>
       {% endfor %}
     {% endif %}
 
     {% if field.help_text %}
-      <small class="text-muted">{{ field.help_text }}</small>
+      <small class="has-text-grey is-block pt-1">{{ field.help_text }}</small>
     {% endif %}
   </div>
 {% endfor %}
