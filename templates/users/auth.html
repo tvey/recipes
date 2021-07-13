@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}
   {% if 'join' in request.path %}
-    Регистрация | 
+    {% trans "Регистрация" %} | 
   {% elif 'login' in request.path %}
-    Войти | 
+    {% trans "Войти" %} | 
   {% endif %}
 {% endblock title %}
 
@@ -13,20 +14,20 @@
   <div class="column is-half is-offset-one-quarter">
     {% if 'join' in request.path %}
       <form method="post">{% csrf_token %}
-        <h2 class="title is-2">Регистрация</h2>
+        <h2 class="title is-2">{% trans "Регистрация" %}</h2>
         {% include 'includes/form.html' with form=form %}
-        <button type="submit" class="button is-success">Зарегистрироваться</button>
-        <small class="has-text-grey-light pl-2 pt-3 is-inline-block">Уже есть аккаунт? <a href="{% url 'users:login' %}">Войти</a></small>
+        <button type="submit" class="button is-success">{% trans "Зарегистрироваться" %}</button>
+        <small class="has-text-grey-light pl-2 pt-3 is-inline-block">{% trans "Уже есть аккаунт?" %} <a href="{% url 'users:login' %}">{% trans "Войти" %}</a></small>
       </form>
       {% elif 'login' in request.path %}
       <form method="post">{% csrf_token %}
-      <h2 class="title is-2">Войти</h2>
+      <h2 class="title is-2">{% trans "Войти" %}</h2>
       {% include 'includes/form.html' with form=form %}
       <small class="is-block pb-1">
-        <a href="#">Забыли пароль?</a>
+        <a href="#">{% trans "Забыли пароль?" %}</a>
       </small>
-      <button type="submit" class="button is-success">Войти</button>
-      <small class="has-text-grey-light pl-2 pt-3 is-inline-block">Нужен аккаунт? <a href="{% url 'users:register' %}">Можно создать</a></small>
+      <button type="submit" class="button is-success">{% trans "Войти" %}</button>
+      <small class="has-text-grey-light pl-2 pt-3 is-inline-block">{% trans "Нужен аккаунт?" %} <a href="{% url 'users:register' %}">{% trans "Можно создать" %}</a></small>
       </form>
     {% endif %}
   </div>

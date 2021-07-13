@@ -6,6 +6,8 @@ Django 3.2.4.
 import os
 from pathlib import Path
 
+from django.utils.translation import gettext_lazy as _
+
 BASE_DIR = Path(__file__).resolve().parents[2]
 
 ALLOWED_HOSTS = []
@@ -81,9 +83,14 @@ LOGIN_REDIRECT_URL = 'recipes:home'
 LOGOUT_REDIRECT_URL = 'recipes:home'
 
 # Internationalization
-# https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'ru'
+
+LANGUAGES = [
+    ('ru', _('Русский')),
+]
+
+LOCALE_PATHS = []
 
 TIME_ZONE = 'Europe/Moscow'
 

@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
+from django.utils.translation import gettext as _
 
 from .models import User
 from .forms import RegistrationForm, LoginForm
@@ -13,7 +14,7 @@ def register(request):
     form = RegistrationForm(request.POST or None)
     if form.is_valid():
         user = form.save()
-        msg = 'Добро пожаловать!'
+        msg = _('Добро пожаловать!')
         messages.info(request, msg)
         return redirect('users:login')
 
