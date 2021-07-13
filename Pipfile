@@ -11,6 +11,10 @@ pytest = "*"
 pytest-django = "*"
 pytest-cov = "*"
 faker = "*"
+django-celery-beat = "*"
+django-celery-results = "*"
+redis = "*"
+celery = "*"
 
 [dev-packages]
 

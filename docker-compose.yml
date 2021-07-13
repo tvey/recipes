@@ -6,13 +6,14 @@ services:
     build: .
     command: sh startup.sh
     ports: 
-      - 8000:8000
+      - 8008:8000
     volumes:
       - .:/app
     env_file:
       - ./.env
     depends_on:
       - db
+      - redis
   db:
     container_name: recipes_db
     image: postgres:13-alpine
@@ -21,6 +22,28 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - ./.env.db
+  redis:
+    image: redis:latest
+    container_name: recipes_broker
+  celery:
+    build: .
+    container_name: recipes_tasks
+    command: celery -A config worker -l info
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env
+    depends_on:
+      - redis
+  celery-beat:
+    build: .
+    command: celery -A config beat -l info
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env
+    depends_on:
+      - redis
 
 volumes:
   postgres_data:
