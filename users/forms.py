@@ -61,7 +61,7 @@ class RegistrationForm(UserCreationForm):
 
     email = forms.EmailField(
         label=_('Электронная почта'),
-        widget=forms.PasswordInput(
+        widget=forms.EmailInput(
             attrs={
                 'class': 'input',
                 'required': 'true',
@@ -108,3 +108,17 @@ class RegistrationForm(UserCreationForm):
             error_text = _('Пользователь с такой почтой уже зарегистрирован.')
             raise forms.ValidationError(error_text)
         return email
+
+
+class EmailForm(forms.Form):
+    email = forms.EmailField(
+        label=_('Электронная почта'),
+        max_length=254,
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'input',
+                'autocomplete': 'email',
+                'autofocus': 'autofocus',
+            }
+        ),
+    )

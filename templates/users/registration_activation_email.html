@@ -1,0 +1,10 @@
+{% load i18n %}
+
+{% autoescape off %}
+  {% if first %}
+    <p>{% trans "Добро пожаловать!" %}</p>
+  {% endif %}
+    <p>{% trans "Пожалуйста, пройдите по ссылке ниже, чтобы завершить регистрацию:" %}<br>
+    {{ protocol }}://{{ domain }}{% url 'users:activate-account' uidb64=uidb64 token=token %}</p>
+    <p>{% trans "Имя пользователя:" %} {{ user.username }}</p>
+{% endautoescape %}

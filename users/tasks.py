@@ -6,7 +6,7 @@ from config.celery import app
 
 @app.task
 def send_email(user_email, subject=None, message=None, html_message=None):
-    """General task for sending email."""
+    """Задача отправки письма на почту пользователя."""
     send_mail(
         subject if subject else '',
         message if message else '',
