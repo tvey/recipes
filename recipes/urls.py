@@ -5,5 +5,5 @@ from .views import index
 app_name = 'recipes'
 
 urlpatterns = [
-   path('', index, name='index'), 
+   path('', index, name='home'), 
 ]
