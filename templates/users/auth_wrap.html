@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<section class="section">
+  <div class="colums">
+    <div class="column is-half is-offset-one-quarter">
+      {% include 'includes/messages.html' %}
+      {% block auth %}{% endblock auth %}
+    </div>
+  </div>
+</section>
+{% endblock content %}

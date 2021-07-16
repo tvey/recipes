@@ -2,6 +2,9 @@ from django import forms
 from django.contrib.auth.forms import (
     UserCreationForm,
     AuthenticationForm,
+    PasswordResetForm,
+    PasswordChangeForm,
+    SetPasswordForm,
 )
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
@@ -21,7 +24,7 @@ class LoginForm(AuthenticationForm):
 
     username = forms.CharField(
         label=_('Имя пользователя или почта'),
-        widget=forms.PasswordInput(
+        widget=forms.EmailInput(
             attrs={
                 'class': 'input',
                 'required': 'true',
@@ -130,6 +133,68 @@ class EmailForm(forms.Form):
                 'class': 'input',
                 'autocomplete': 'email',
                 'autofocus': 'autofocus',
+            }
+        ),
+    )
+
+
+class ResetPasswordForm(PasswordResetForm):
+    email = forms.EmailField(
+        label='',
+        max_length=254,
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'input',
+                'autocomplete': 'email',
+                'autofocus': 'autofocus',
+            }
+        ),
+    )
+
+
+class ChangePasswordForm(PasswordChangeForm):
+    old_password = forms.CharField(
+        label=_('Старый пароль'),
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'input',
+                'autofocus': 'autofocus',
+            }
+        ),
+    )
+    new_password1 = forms.CharField(
+        label=_('Новый пароль'),
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'input',
+            }
+        ),
+    )
+    new_password2 = forms.CharField(
+        label=_('Подтвердите новый пароль'),
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'input',
+            }
+        ),
+    )
+
+
+class SetUserPasswordForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+        label=_('Новый пароль'),
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'input',
+                'autofocus': 'autofocus',
+            }
+        ),
+    )
+    new_password2 = forms.CharField(
+        label=_('Подтвердите новый пароль'),
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'input',
             }
         ),
     )

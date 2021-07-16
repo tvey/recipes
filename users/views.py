@@ -1,5 +1,5 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.auth.views import LoginView
 from django.contrib.sites.shortcuts import get_current_site
@@ -11,9 +11,8 @@ from django.utils.html import strip_tags
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.translation import gettext as _
 
-
 from .models import User
-from .forms import RegistrationForm, LoginForm, EmailForm
+from .forms import RegistrationForm, LoginForm, EmailForm, ChangePasswordForm
 from .tasks import send_email
 
 
@@ -46,7 +45,7 @@ def send_activation_link(request, user, first=True):
     )
     plain_message = strip_tags(html_message)
 
-    send_email.delay(
+    send_email.dela(
         user.email,
         subject=mail_subject,
         message=plain_message,
@@ -124,9 +123,7 @@ def resend_activation(request):
                 messages.info(request, msg)
                 return redirect('users:login')
             send_activation_link(request, user, first=False)
-            messages.info(
-                request, _('Новая ссылка отправлена, проверьте свою почту.')
-            )
+            messages.info(request, _('Новая ссылка отправлена, проверьте свою почту.'))
             return redirect('users:login')
         except User.DoesNotExist:
             msg = _('Пожалуйста, укажите тот адрес, с которым регистрировались.')
@@ -140,3 +137,23 @@ class LoginUserView(LoginView):
     template_name = 'users/auth.html'
     redirect_authenticated_user = True
     form_class = LoginForm
+
+
+@login_required
+def change_password(request):
+    form = ChangePasswordForm(request.user, request.POST or None)
+    old = request.POST.get('old_password')
+    new = request.POST.get('new_password1')
+
+    if form.is_valid():
+        old = request.POST.get('old_password')
+        new = request.POST.get('new_password1')
+        if old == new:
+            messages.info(request, _('Вы не изменили свой пароль.'))
+        else:
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, _('Пароль успешно изменён!'))
+        return redirect('recipes:home')
+
+    return render(request, 'users/password_change.html', {'form': form})
