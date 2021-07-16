@@ -3,6 +3,7 @@ from django.contrib.auth.forms import (
     UserCreationForm,
     AuthenticationForm,
 )
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from .models import User
@@ -38,6 +39,16 @@ class LoginForm(AuthenticationForm):
             }
         ),
     )
+
+    def confirm_login_allowed(self, user):
+        if not user.is_active:
+            link_text = _('запросите новую ссылку')
+            link = f'<a href="/resend-activation/">{link_text}</a>'
+            msg = _(
+                'Этот аккаунт не активирован.\nПроверьте свою почту, куда была'
+                ' отправлена ссылка активации или {}.'
+            )
+            raise ValidationError(msg.format(link))
 
 
 class RegistrationForm(UserCreationForm):
