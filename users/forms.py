@@ -24,7 +24,7 @@ class LoginForm(AuthenticationForm):
 
     username = forms.CharField(
         label=_('Имя пользователя или почта'),
-        widget=forms.EmailInput(
+        widget=forms.TextInput(
             attrs={
                 'class': 'input',
                 'required': 'true',
@@ -191,7 +191,7 @@ class SetUserPasswordForm(SetPasswordForm):
         ),
     )
     new_password2 = forms.CharField(
-        label=_('Подтвердите новый пароль'),
+        label=_('Подтвердите пароль'),
         widget=forms.PasswordInput(
             attrs={
                 'class': 'input',

@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.auth.views import LoginView
@@ -25,7 +26,7 @@ token_generator = TokenGenerator()
 
 
 def send_activation_link(request, user, first=True):
-    """Сформировать ссылку и письмо для активации аккаунта."""
+    """Сформировать ссылку и отправить письмо для активации аккаунта."""
     current_site = get_current_site(request)
     protocol = 'https' if request.is_secure() else 'http'
     mail_subject = _('Активация аккаунта')
@@ -45,7 +46,7 @@ def send_activation_link(request, user, first=True):
     )
     plain_message = strip_tags(html_message)
 
-    send_email.dela(
+    send_email.delay(
         user.email,
         subject=mail_subject,
         message=plain_message,
@@ -74,7 +75,7 @@ def register(request):
                 'Добро пожаловать! Для завершения регистрации '
                 'проверьте свою электронную почту.'
             )
-            messages.success(request, _(msg))
+            messages.success(request, msg)
             return redirect('users:login')
         elif User.objects.filter(email__iexact=email, is_active=False).exists():
             return render(request, 'users/registration_activation_error.html')
@@ -103,8 +104,8 @@ def activate_account(request, uidb64, token):
         )
         messages.success(request, msg)
         return redirect('users:login')
-    else:
-        return render(request, 'users/registration_activation_error.html')
+
+    return render(request, 'users/registration_activation_error.html')
 
 
 def resend_activation(request):

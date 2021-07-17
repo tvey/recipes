@@ -3,20 +3,11 @@
 
 {% block title %}{% trans "Активация аккаунта" %} | {% endblock title %}
 
-{% block content %}
-  <div class="section">
-    <div class="columns">
-      <div class="column is-half is-offset-one-quarter">
-        {% include 'includes/messages.html' %}
-        <h2 class="title is-2">{% trans "Запросить новую ссылку активации аккаунта" %}</h2>
-        <form method="post" class="">{% csrf_token %}
-          {% include 'includes/form.html' with form=form %}
-          <div class="btn-wrap">
-            <button class="button is-info" type='submit'>{% trans "Отправить ссылку" %}</button>
-            <small class="has-text-grey-light pl-2 pt-3 is-inline-block"><a href="{% url 'users:login' %}" >{% trans "Страница входа" %}</a></small>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+{% block auth %}
+  <h2 class="title is-2">{% trans "Запросить новую ссылку активации аккаунта" %}</h2>
+  <form method="post" class="">{% csrf_token %}
+    {% include 'includes/form.html' with form=form %}
+    <button class="button is-info mr-2" type='submit'>{% trans "Отправить ссылку" %}</button>
+    <small class="has-text-grey-light mt-2-5 is-inline-block"><a href="{% url 'users:login' %}" >{% trans "Страница входа" %}</a></small>
+  </form>
 {% endblock %}

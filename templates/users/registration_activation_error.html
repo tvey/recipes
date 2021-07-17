@@ -3,15 +3,8 @@
 
 {% block title %}{% trans "Активация аккаунта" %} |{% endblock title %}
 
-{% block content %}
-<div class="section">
-  
-  <div class="columns is-mobile is-centered">
-    <div class="column is-half is-size-6">
-      <p class="mb-2">{% trans "Извините, эта ссылка не работает." %}</p>
-      <p class="mb-2"><a class="has-text-primary" href="{% url 'users:resend-activation' %}" class="link">{% trans "Отправить новую ссылку" %}</a></p>
-      <p><a class="has-text-info" href="{% url 'users:login' %}" class="link">{% trans "Страница входа" %}</a></p>
-    </div>
-  </div>
-</div>
+{% block auth %}
+  <p class="mb-2">{% trans "Извините, эта ссылка не работает." %}</p>
+  <p class="mb-2"><a class="has-text-primary" href="{% url 'users:resend-activation' %}" class="link">{% trans "Отправить новую ссылку" %}</a></p>
+  <p><a class="has-text-info" href="{% url 'users:login' %}" class="link">{% trans "Страница входа" %}</a></p>
 {% endblock %}
