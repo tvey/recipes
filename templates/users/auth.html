@@ -14,18 +14,18 @@
     <form method="post">{% csrf_token %}
       <h2 class="title is-2">{% trans "Регистрация" %}</h2>
       {% include 'includes/form.html' with form=form %}
-      <button type="submit" class="button is-success">{% trans "Зарегистрироваться" %}</button>
-      <small class="has-text-grey-light pl-2 pt-3 is-inline-block">{% trans "Уже есть аккаунт?" %} <a href="{% url 'users:login' %}">{% trans "Войти" %}</a></small>
+      <button type="submit" class="button is-success mr-2">{% trans "Зарегистрироваться" %}</button>
+      <small class="has-text-grey-light mt-2-5 is-inline-block">{% trans "Уже есть аккаунт?" %} <a href="{% url 'users:login' %}">{% trans "Войти" %}</a></small>
     </form>
     {% elif 'login' in request.path %}
     <form method="post">{% csrf_token %}
     <h2 class="title is-2">{% trans "Войти" %}</h2>
     {% include 'includes/form.html' with form=form %}
-    <small class="is-block pb-1">
+    <small class="is-block mb-2">
       <a href="{% url 'password_reset' %}">{% trans "Забыли пароль?" %}</a>
     </small>
-    <button type="submit" class="button is-success">{% trans "Войти" %}</button>
-    <small class="has-text-grey-light pl-2 pt-3 is-inline-block">{% trans "Нужен аккаунт?" %} <a href="{% url 'users:register' %}">{% trans "Можно создать" %}</a></small>
+    <button type="submit" class="button is-success mr-2">{% trans "Войти" %}</button>
+    <small class="has-text-grey-light mt-2-5 is-inline-block">{% trans "Нужен аккаунт?" %} <a href="{% url 'users:register' %}">{% trans "Можно создать" %}</a></small>
     </form>
   {% endif %}
 {% endblock auth %}
