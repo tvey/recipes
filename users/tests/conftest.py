@@ -17,6 +17,11 @@ def email_fix():
 
 
 @pytest.fixture
+def username_fix():
+    return fake.user_name()
+
+
+@pytest.fixture
 def password_fix():
     return fake.password()
 
@@ -33,9 +38,17 @@ def long_text():
 
 @pytest.fixture
 def new_user(db, user_factory):
-    return user_factory.create()
+    """Return a function to pass params to the fixture."""
+    def create_user(**kwargs):
+        user = user_factory.create(**kwargs)
+        return user
+    return create_user
 
 
 @pytest.fixture
 def new_inactive_user(db, user_factory):
-    return user_factory.create(is_active=False)
+    """Return a function to pass params to the fixture."""
+    def create_user(**kwargs):
+        user = user_factory.create(is_active=False, **kwargs)
+        return user
+    return create_user
