@@ -27,3 +27,10 @@ def test_email_field_unqie(django_user_model, new_user, email_fix):
 
     with pytest.raises(IntegrityError):
         new_user(email=email_fix)
+
+
+def test_object_string_representation(new_user, username_fix, email_fix):
+    user = new_user(username=username_fix, email=email_fix)
+    tmpl = '({}, {})'
+    assert str(user) == tmpl.format(username_fix, email_fix)
+    assert str(user) == tmpl.format(user.username, user.email)

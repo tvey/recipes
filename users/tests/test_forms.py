@@ -57,6 +57,7 @@ def test_registration_form_with_bad_email(email_fix, username_fix, password_fix)
 def test_registration_form_with_bad_username(email_fix, username_fix, password_fix):
     form = RegistrationForm(
         data={
+            'email': email_fix,
             'username': username_fix + '!!!',
             'password1': password_fix,
             'password2': password_fix,
@@ -64,6 +65,42 @@ def test_registration_form_with_bad_username(email_fix, username_fix, password_f
     )
     assert not form.is_valid()
     assert 'только разрешённые символы' in str(form.errors)
+
+
+@pytest.mark.django_db
+def test_registration_form_unique_email(
+    new_user, email_fix, username_fix, password_fix
+):
+    existing_user = new_user(email=email_fix)
+
+    form = RegistrationForm(
+        data={
+            'email': email_fix,
+            'username': username_fix,
+            'password1': password_fix,
+            'password2': password_fix,
+        }
+    )
+    assert not form.is_valid()
+    assert 'с такой почтой уже зарегистрирован' in str(form.errors)
+
+
+@pytest.mark.django_db
+def test_registration_form_unique_username(
+    new_user, email_fix, username_fix, password_fix
+):
+    existing_user = new_user(username=username_fix)
+
+    form = RegistrationForm(
+        data={
+            'email': email_fix,
+            'username': username_fix,
+            'password1': password_fix,
+            'password2': password_fix,
+        }
+    )
+    assert not form.is_valid()
+    assert 'уже занято' in str(form.errors)
 
 
 @pytest.mark.django_db
@@ -77,6 +114,7 @@ def test_registration_form_no_email(username_fix, password_fix):
     )
     assert not form.is_valid()
     assert 'Обязательное поле' in str(form.errors)
+
 
 @pytest.mark.django_db
 def test_registration_form_no_username(email_fix, password_fix):
