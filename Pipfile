@@ -16,6 +16,7 @@ django-celery-results = "*"
 redis = "*"
 celery = "*"
 pytest-factoryboy = "*"
+pillow = "*"
 
 [dev-packages]
 
