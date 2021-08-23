@@ -3,14 +3,14 @@ version: "3.8"
 services:
   web:
     container_name: recipes
-    build: .
-    command: sh startup.sh
+    build: ./project
+    command: python manage.py runserver 0.0.0.0:8000
     ports: 
       - 8008:8000
     volumes:
-      - .:/app
+      - ./project:/app
     env_file:
-      - ./.env
+      - ./project/.env
     depends_on:
       - db
       - redis
@@ -26,22 +26,22 @@ services:
     image: redis:latest
     container_name: recipes_broker
   celery:
-    build: .
+    build: ./project
     container_name: recipes_tasks
     command: celery -A config worker -l info
     volumes:
-      - .:/app
+      - ./project:/app
     env_file:
-      - ./.env
+      - ./project/.env
     depends_on:
       - redis
   celery-beat:
-    build: .
+    build: ./project
     command: celery -A config beat -l info
     volumes:
-      - .:/app
+      - ./project:/app
     env_file:
-      - ./.env
+      - ./project/.env
     depends_on:
       - redis
 

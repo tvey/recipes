@@ -67,3 +67,8 @@ cover/
 
 # PyBuilder
 target/
+
+### Other ###
+notes.txt
+config/settings/win.py
+utils/

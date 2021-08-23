@@ -1,6 +1,5 @@
 import pytest
 
-from django.contrib.auth.models import AnonymousUser
 from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
@@ -17,7 +16,6 @@ from users.views import (
 register_path = reverse('users:register')
 login_path = reverse('users:login')
 homepage = reverse('recipes:home')
-anonymous_user = AnonymousUser()
 
 
 def activate_path(user):

@@ -12,6 +12,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('recipes.urls')),
     path('', include('users.urls')),
+    #     path('about/', about, name='recipes-about'),
     path(
         "reset-password/",
         PasswordResetView.as_view(
